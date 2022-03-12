@@ -14,3 +14,15 @@ def File2Standard(path):
     f_list = os.listdir(path)
     for f in f_list:
         Ori2Standard(path+'/'+f)
+
+# 传入要训练的图片和标签，制作训练集,返回图片集和标签集合
+def TrainSet(path,label):
+    images = []
+    labels = []
+    f_list = os.listdir(path)
+    for f in f_list:
+        mat = cv.imread(path + '/' + f)
+        gray_mat = cv.cvtColor(mat,cv.COLOR_BGR2GRAY)
+        images.append(gray_mat)
+        labels.append(label)
+    return images,labels
