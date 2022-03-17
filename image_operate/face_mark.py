@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 face_detector = cv.CascadeClassifier('haarcascade_frontalface_alt2.xml')  
 facemark_detector = cv.face.createFacemarkLBF()
-facemark_detector.loadModel('lbfmodel.yaml')
+facemark_detector.loadModel('https://raw.githubusercontent.com/kurnianggoro/GSOC2017/master/data/lbfmodel.yaml') 
 
 
 # 传入图片地址,给出人脸的体征点标识
