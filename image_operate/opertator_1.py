@@ -10,6 +10,8 @@ def Ori2Standard(path):
 
 # 传入要训练的图片和标签，制作训练集,返回图片集和标签集合
 def TrainSet(path, label):
+    # 命令行传参会传递string，这是会报错TypeError: labels data type = 19 is not supported，故在此进行转型
+    label = int(label)
     images = []
     labels = []
     f_list = os.listdir(path)
@@ -22,6 +24,7 @@ def TrainSet(path, label):
                 images.append(im)
                 labels.append(label)
     return images, labels
+
 
 
 # 包装了一下predict，可以更方便的输出
