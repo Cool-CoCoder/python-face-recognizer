@@ -9,16 +9,19 @@ def Ori2Standard(path):
 
 
 # 传入要训练的图片和标签，制作训练集,返回图片集和标签集合
-def TrainSet(path,label):
+def TrainSet(path, label):
     images = []
     labels = []
     f_list = os.listdir(path)
     for f in f_list:
         # 有时会混入非图片文件，故需要判断
         if f.endswith('png') or f.endswith('jpg'):
-            images.append(Ori2Standard(path + '/' + f))
-            labels.append(label)
-    return images,labels
+            im = Ori2Standard(path + '/' + f)
+            # 注意这步很重要，感兴趣区域可能会为空，如果加入了图片集那会让opencv报错，图片数量和标签数量不匹配
+            if im is not None:
+                images.append(im)
+                labels.append(label)
+    return images, labels
 
 
 # 包装了一下predict，可以更方便的输出
