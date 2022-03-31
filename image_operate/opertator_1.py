@@ -35,3 +35,26 @@ def predict(path):
 
     print("预测的lable:" + str(lable))
     print("预测的偏离程度:" + str(confidence))
+    
+
+# 启动器, 能够用命令行启动程序, 达到了封装成接口的目的
+# 判断是否已经有训练集，如果有则载入，无则在最后保存训练集，我们的训练集统一名称叫做train_face_model.xml，故只需判断文件夹下是否有该文件
+def start():
+    # 传入图片文件夹地址和标签
+    imgs, labs= TrainSet(sys.argv[1],sys.argv[2])
+    
+    if os.path.exists("/Users/program_machine/PycharmProjects/Face_Detect/imageTrain/train_face_model.xml"): # 地址用自己的训练文件
+        print("已经存在训练集, 将导入train_face_model.xml")
+        # read方法可以载入已经训练的模型
+        recognizer.read("train_face_model.xml")
+        # 导入图片和标签
+        recognizer.update(imgs, np.array(labs))
+        print("更新成功")
+
+    else:
+        print("不存在训练集, 本次训练将会生成")
+        recognizer.train(imgs, np.array(labs))
+        # 通过save方法可以存储训练的结果
+        recognizer.save("train_face_model.xml")
+        print("训练集生成成功")
+
